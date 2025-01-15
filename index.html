@@ -8,6 +8,9 @@
 <body>
 
   <h1>Welcome to My Facebook Integration!</h1>
+  
+  <!-- Facebook Login Button -->
+  <button onclick="fbLogin()">Login with Facebook</button>
 
   <script>
     window.fbAsyncInit = function() {
@@ -21,6 +24,7 @@
       FB.AppEvents.logPageView();   
     };
 
+    // Load the Facebook SDK
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];
        if (d.getElementById(id)) {return;}
@@ -28,6 +32,18 @@
        js.src = "https://connect.facebook.net/en_US/sdk.js";
        fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+    // Facebook login function
+    function fbLogin() {
+      FB.login(function(response) {
+        if (response.authResponse) {
+          console.log('Successfully logged in');
+          // Handle the login success, for example, fetching user data
+        } else {
+          console.log('User cancelled login or did not fully authorize.');
+        }
+      });
+    }
   </script>
 
 </body>
