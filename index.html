@@ -8,11 +8,12 @@
 <body>
 
   <h1>Welcome to My Facebook Integration!</h1>
-  
+
   <!-- Facebook Login Button -->
-  <button onclick="fbLogin()">Login with Facebook</button>
+  <button id="fb-login-btn">Login with Facebook</button>
 
   <script>
+    // Initialize the Facebook SDK
     window.fbAsyncInit = function() {
       FB.init({
         appId      : '1334804091045109', // Your actual Facebook App ID
@@ -21,7 +22,7 @@
         version    : 'v21.0' // Latest API version
       });
 
-      FB.AppEvents.logPageView();   
+      FB.AppEvents.logPageView();
     };
 
     // Load the Facebook SDK
@@ -33,17 +34,21 @@
        fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    // Facebook login function
-    function fbLogin() {
+    // Function to trigger Facebook login
+    function facebookLogin() {
       FB.login(function(response) {
         if (response.authResponse) {
-          console.log('Successfully logged in');
-          // Handle the login success, for example, fetching user data
+          console.log('Logged in successfully!', response);
+          alert('Logged in successfully!');
         } else {
           console.log('User cancelled login or did not fully authorize.');
+          alert('User cancelled login or did not authorize.');
         }
-      });
+      }, {scope: 'public_profile,email'});
     }
+
+    // Add event listener to the login button
+    document.getElementById('fb-login-btn').addEventListener('click', facebookLogin);
   </script>
 
 </body>
